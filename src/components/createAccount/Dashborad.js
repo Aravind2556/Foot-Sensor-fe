@@ -6,10 +6,15 @@ import Livechart from '../Livechart'
 function Dashborad() {
 
   const {leftFootData, rightFootData} = useContext(DContext)
+  console.log("Left foor data",leftFootData)
+  console.log("right foot data",rightFootData)
   const [forceAvgL, setForceAvgL] = useState(null)
   const [forceAvgR, setForceAvgR] = useState(null)
 
   const [forceParamsL, setForceParamsL] = useState(null)
+  const [forceParamsR, setForceParamsR] = useState(null)
+
+  const [heartRateParamsL,setheartRateParamsL] = useState(null)
 
   useEffect(()=>{
 
@@ -70,8 +75,52 @@ function Dashborad() {
 
         setForceParamsL([tempForcef1, tempForcef2, tempForcef3, tempForcef4, tempForcef5])
       }
-    }
 
+      if(leftFootData.forceParams && leftFootData.forceParams.length>0){
+        const tempForceParamsXaxis = leftFootData.forceParams.map(data=>new Date(data.xAxis).toLocaleString())
+
+        const YaxisF1 = leftFootData.forceParams.map(data=>data.yAxis.f1)
+        const YaxisF2 = leftFootData.forceParams.map(data=>data.yAxis.f2)
+        const YaxisF3 = leftFootData.forceParams.map(data=>data.yAxis.f3)
+        const YaxisF4 = leftFootData.forceParams.map(data=>data.yAxis.f4)
+        const YaxisF5 = leftFootData.forceParams.map(data=>data.yAxis.f5)
+
+        const tempForcef1 = {
+          "x-axis": tempForceParamsXaxis,
+          "y-axis": YaxisF1,
+          color: "#845668",
+          seriesName: 'f1'
+        }
+        const tempForcef2 = {
+          "x-axis": tempForceParamsXaxis,
+          "y-axis": YaxisF2,
+          color: "#876988",
+          seriesName: 'f2'
+        }
+        const tempForcef3 = {
+          "x-axis": tempForceParamsXaxis,
+          "y-axis": YaxisF3,
+          color: "#566868",
+          seriesName: 'f3'
+        }
+        const tempForcef4 = {
+          "x-axis": tempForceParamsXaxis,
+          "y-axis": YaxisF4,
+          color: "#25e868",
+          seriesName: 'f4'
+        }
+        const tempForcef5 = {
+          "x-axis": tempForceParamsXaxis,
+          "y-axis": YaxisF5,
+          color: "#g76868",
+          seriesName: 'f5'
+        }
+
+        setheartRateParamsL([tempForcef1, tempForcef2, tempForcef3, tempForcef4, tempForcef5])
+      }
+    }
+    
+    
     if(rightFootData){
       if(rightFootData.forceAvg && rightFootData.forceAvg.length>0){
         const tempForceAvgXaxis = rightFootData.forceAvg.map(data=>new Date(data.xAxis).toLocaleString())
@@ -84,6 +133,49 @@ function Dashborad() {
           seriesName: 'Force Average data'
         }]
         setForceAvgR(tempForceAvg)
+      }
+
+      if(rightFootData.forceParams && rightFootData.forceParams.length>0){
+        const tempForceParamsXaxis = rightFootData.forceParams.map(data=>new Date(data.xAxis).toLocaleString())
+
+        const YaxisF1 = leftFootData.forceParams.map(data=>data.yAxis.f1)
+        const YaxisF2 = leftFootData.forceParams.map(data=>data.yAxis.f2)
+        const YaxisF3 = leftFootData.forceParams.map(data=>data.yAxis.f3)
+        const YaxisF4 = leftFootData.forceParams.map(data=>data.yAxis.f4)
+        const YaxisF5 = leftFootData.forceParams.map(data=>data.yAxis.f5)
+
+        const tempForcef1 = {
+          "x-axis": tempForceParamsXaxis,
+          "y-axis": YaxisF1,
+          color: "#845668",
+          seriesName: 'f1'
+        }
+        const tempForcef2 = {
+          "x-axis": tempForceParamsXaxis,
+          "y-axis": YaxisF2,
+          color: "#876988",
+          seriesName: 'f2'
+        }
+        const tempForcef3 = {
+          "x-axis": tempForceParamsXaxis,
+          "y-axis": YaxisF3,
+          color: "#566868",
+          seriesName: 'f3'
+        }
+        const tempForcef4 = {
+          "x-axis": tempForceParamsXaxis,
+          "y-axis": YaxisF4,
+          color: "#25e868",
+          seriesName: 'f4'
+        }
+        const tempForcef5 = {
+          "x-axis": tempForceParamsXaxis,
+          "y-axis": YaxisF5,
+          color: "#g76868",
+          seriesName: 'f5'
+        }
+
+        setForceParamsR([tempForcef1, tempForcef2, tempForcef3, tempForcef4, tempForcef5])
       }
     }
 
@@ -132,6 +224,8 @@ function Dashborad() {
     }
   ];
 
+  console.log("sample data",sampleData)
+
   if(forceAvgL===null || forceAvgR===null || forceParamsL===null){
     return <div>Loading...</div>
   }
@@ -160,7 +254,7 @@ function Dashborad() {
             <Livechart data={forceParamsL} title={'Left Foot'} lineStyle={'smooth'} lineWidth={2} chartType={'line'} controls={controls} />
           </div>
           <div className='col-11 col-md-8 col-lg-5 bg-light'>
-            <Livechart data={forceAvgR} title={'Right Foot'} lineStyle={'smooth'} lineWidth={4} chartType={'line'} controls={controls} />
+            <Livechart data={forceParamsR} title={'Right Foot'} lineStyle={'smooth'} lineWidth={4} chartType={'line'} controls={controls} />
           </div>
         </div>
       </div>
