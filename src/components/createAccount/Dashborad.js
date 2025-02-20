@@ -16,6 +16,8 @@ function Dashborad() {
 
   const [heartRateParamsL,setheartRateParamsL] = useState(null)
 
+  const [accParamsL, setAccParamsL] = useState(null)
+
   useEffect(()=>{
 
     if(leftFootData){
@@ -76,49 +78,59 @@ function Dashborad() {
         setForceParamsL([tempForcef1, tempForcef2, tempForcef3, tempForcef4, tempForcef5])
       }
 
-      if(leftFootData.forceParams && leftFootData.forceParams.length>0){
-        const tempForceParamsXaxis = leftFootData.forceParams.map(data=>new Date(data.xAxis).toLocaleString())
+      if(leftFootData.heartRate && leftFootData.heartRate.length>0){
+        const tempHeartParamsXaxis = leftFootData.heartRate.map(data=>new Date(data.xAxis).toLocaleString())
 
-        const YaxisF1 = leftFootData.forceParams.map(data=>data.yAxis.f1)
-        const YaxisF2 = leftFootData.forceParams.map(data=>data.yAxis.f2)
-        const YaxisF3 = leftFootData.forceParams.map(data=>data.yAxis.f3)
-        const YaxisF4 = leftFootData.forceParams.map(data=>data.yAxis.f4)
-        const YaxisF5 = leftFootData.forceParams.map(data=>data.yAxis.f5)
+        const YaxisF1 = leftFootData.heartRate.map(data=>data.yAxis.f1)
+        const YaxisF2 = leftFootData.heartRate.map(data=>data.yAxis.f2)
 
-        const tempForcef1 = {
-          "x-axis": tempForceParamsXaxis,
+        const tempHeartf1 = {
+          "x-axis": tempHeartParamsXaxis,
+          "y-axis": YaxisF1,
+          color: "#f24236",
+          seriesName: 'f1'
+        }
+        const tempHeartf2 = {
+          "x-axis": tempHeartParamsXaxis,
+          "y-axis": YaxisF2,
+          color: "#007FFF",
+          seriesName: 'f2'
+        }
+
+        setheartRateParamsL([tempHeartf1, tempHeartf2])
+      }
+
+      if(leftFootData.acceleration && leftFootData.acceleration.length>0){
+        const tempAccParamsXaxis = leftFootData.acceleration.map(data=>new Date(data.xAxis).toLocaleString())
+
+        const YaxisF1 = leftFootData.acceleration.map(data=>data.yAxis.f1)
+        const YaxisF2 = leftFootData.acceleration.map(data=>data.yAxis.f2)
+        const YaxisF3 = leftFootData.acceleration.map(data=>data.yAxis.f3)
+
+        const tempAccf1 = {
+          "x-axis": tempAccParamsXaxis,
           "y-axis": YaxisF1,
           color: "#845668",
           seriesName: 'f1'
         }
-        const tempForcef2 = {
-          "x-axis": tempForceParamsXaxis,
+        const tempAccf2 = {
+          "x-axis": tempAccParamsXaxis,
           "y-axis": YaxisF2,
           color: "#876988",
           seriesName: 'f2'
         }
-        const tempForcef3 = {
-          "x-axis": tempForceParamsXaxis,
+        const tempAccf3 = {
+          "x-axis": tempAccParamsXaxis,
           "y-axis": YaxisF3,
           color: "#566868",
           seriesName: 'f3'
         }
-        const tempForcef4 = {
-          "x-axis": tempForceParamsXaxis,
-          "y-axis": YaxisF4,
-          color: "#25e868",
-          seriesName: 'f4'
-        }
-        const tempForcef5 = {
-          "x-axis": tempForceParamsXaxis,
-          "y-axis": YaxisF5,
-          color: "#g76868",
-          seriesName: 'f5'
-        }
 
-        setheartRateParamsL([tempForcef1, tempForcef2, tempForcef3, tempForcef4, tempForcef5])
+        setAccParamsL([tempAccf1, tempAccf2, tempAccf3])
       }
+
     }
+    console.log("setAccParamsL:", setAccParamsL)
     
     
     if(rightFootData){
@@ -138,11 +150,11 @@ function Dashborad() {
       if(rightFootData.forceParams && rightFootData.forceParams.length>0){
         const tempForceParamsXaxis = rightFootData.forceParams.map(data=>new Date(data.xAxis).toLocaleString())
 
-        const YaxisF1 = leftFootData.forceParams.map(data=>data.yAxis.f1)
-        const YaxisF2 = leftFootData.forceParams.map(data=>data.yAxis.f2)
-        const YaxisF3 = leftFootData.forceParams.map(data=>data.yAxis.f3)
-        const YaxisF4 = leftFootData.forceParams.map(data=>data.yAxis.f4)
-        const YaxisF5 = leftFootData.forceParams.map(data=>data.yAxis.f5)
+        const YaxisF1 = rightFootData.forceParams.map(data=>data.yAxis.f1)
+        const YaxisF2 = rightFootData.forceParams.map(data=>data.yAxis.f2)
+        const YaxisF3 = rightFootData.forceParams.map(data=>data.yAxis.f3)
+        const YaxisF4 = rightFootData.forceParams.map(data=>data.yAxis.f4)
+        const YaxisF5 = rightFootData.forceParams.map(data=>data.yAxis.f5)
 
         const tempForcef1 = {
           "x-axis": tempForceParamsXaxis,
@@ -254,7 +266,28 @@ function Dashborad() {
             <Livechart data={forceParamsL} title={'Left Foot'} lineStyle={'smooth'} lineWidth={2} chartType={'line'} controls={controls} />
           </div>
           <div className='col-11 col-md-8 col-lg-5 bg-light'>
-            <Livechart data={forceParamsR} title={'Right Foot'} lineStyle={'smooth'} lineWidth={4} chartType={'line'} controls={controls} />
+            <Livechart data={forceParamsR} title={'Right Foot'} lineStyle={'smooth'} lineWidth={2} chartType={'line'} controls={controls} />
+          </div>
+        </div>
+      </div>
+
+      <div className='p-2 border rounded m-2 bg-primary'>
+        <h3 className='text-center my-2'>Heart/ SpO2</h3>
+        <div className='w-100 d-flex flex-wrap justify-content-center align-items-start gap-2'>
+          <div className='col-11 col-md-8 col-lg-10 bg-light'>
+            <Livechart data={heartRateParamsL} title={'Left Foot'} lineStyle={'smooth'} lineWidth={3} chartType={'line'} controls={controls} />
+          </div>
+        </div>
+      </div>
+
+      <div className='p-2 border rounded m-2 bg-primary'>
+        <h3 className='text-center my-2'>Acceleration Sensor</h3>
+        <div className='w-100 d-flex flex-wrap justify-content-center align-items-start gap-2'>
+          <div className='col-11 col-md-8 col-lg-5 bg-light'>
+            <Livechart data={accParamsL} title={'Left Foot'} lineStyle={'smooth'} lineWidth={2} chartType={'line'} controls={controls} />
+          </div>
+          <div className='col-11 col-md-8 col-lg-5 bg-light'>
+            <Livechart data={forceParamsR} title={'Right Foot'} lineStyle={'smooth'} lineWidth={2} chartType={'line'} controls={controls} />
           </div>
         </div>
       </div>
