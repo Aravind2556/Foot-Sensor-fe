@@ -25,7 +25,7 @@ function Dashborad() {
 
     if(leftFootData){
       if(leftFootData.forceAvg && leftFootData.forceAvg.length>0){
-        const tempForceAvgXaxis = leftFootData.forceAvg.map(data=>new Date(data.xAxis).toLocaleString())
+        const tempForceAvgXaxis = leftFootData.forceAvg.map(data=>new Date(data.xAxis).getTime())
 
         const tempForceAvgYaxis = leftFootData.forceAvg.map(data=>data.yAxis)
         const tempForceAvg = [{
@@ -39,7 +39,7 @@ function Dashborad() {
       }
 
       if(leftFootData.forceParams && leftFootData.forceParams.length>0){
-        const tempForceParamsXaxis = leftFootData.forceParams.map(data=>new Date(data.xAxis).toLocaleString())
+        const tempForceParamsXaxis = leftFootData.forceParams.map(data=>new Date(data.xAxis).getTime())
 
         const YaxisF1 = leftFootData.forceParams.map(data=>data.yAxis.f1)
         const YaxisF2 = leftFootData.forceParams.map(data=>data.yAxis.f2)
@@ -82,7 +82,7 @@ function Dashborad() {
       }
 
       if(leftFootData.heartRate && leftFootData.heartRate.length>0){
-        const tempHeartParamsXaxis = leftFootData.heartRate.map(data=>new Date(data.xAxis).toLocaleString())
+        const tempHeartParamsXaxis = leftFootData.heartRate.map(data=>new Date(data.xAxis).getTime())
 
         const YaxisF1 = leftFootData.heartRate.map(data=>data.yAxis.f1)
         const YaxisF2 = leftFootData.heartRate.map(data=>data.yAxis.f2)
@@ -104,7 +104,7 @@ function Dashborad() {
       }
 
       if(leftFootData.acceleration && leftFootData.acceleration.length>0){
-        const tempAccParamsXaxis = leftFootData.acceleration.map(data=>new Date(data.xAxis).toLocaleString())
+        const tempAccParamsXaxis = leftFootData.acceleration.map(data=>new Date(data.xAxis).getTime())
 
         const YaxisF1 = leftFootData.acceleration.map(data=>data.yAxis.f1)
         const YaxisF2 = leftFootData.acceleration.map(data=>data.yAxis.f2)
@@ -134,7 +134,7 @@ function Dashborad() {
 
 
       if(leftFootData.gyro && leftFootData.gyro.length>0){
-        const tempgyroParamsXaxis = leftFootData.gyro.map(data=>new Date(data.xAxis).toLocaleString())
+        const tempgyroParamsXaxis = leftFootData.gyro.map(data=>new Date(data.xAxis).getTime())
 
         const YaxisF1 = leftFootData.gyro.map(data=>data.yAxis.f1)
         const YaxisF2 = leftFootData.gyro.map(data=>data.yAxis.f2)
@@ -167,7 +167,7 @@ function Dashborad() {
     
     if(rightFootData){
       if(rightFootData.forceAvg && rightFootData.forceAvg.length>0){
-        const tempForceAvgXaxis = rightFootData.forceAvg.map(data=>new Date(data.xAxis).toLocaleString())
+        const tempForceAvgXaxis = rightFootData.forceAvg.map(data=>new Date(data.xAxis).getTime())
         const tempForceAvgYaxis = rightFootData.forceAvg.map(data=>data.yAxis)
 
         const tempForceAvg = [{
@@ -180,7 +180,7 @@ function Dashborad() {
       }
 
       if(rightFootData.forceParams && rightFootData.forceParams.length>0){
-        const tempForceParamsXaxis = rightFootData.forceParams.map(data=>new Date(data.xAxis).toLocaleString())
+        const tempForceParamsXaxis = rightFootData.forceParams.map(data=>new Date(data.xAxis).getTime())
 
         const YaxisF1 = rightFootData.forceParams.map(data=>data.yAxis.f1)
         const YaxisF2 = rightFootData.forceParams.map(data=>data.yAxis.f2)
@@ -223,7 +223,7 @@ function Dashborad() {
       }
 
       if(rightFootData.acceleration && rightFootData.acceleration.length>0){
-        const tempAccParamsXaxis = rightFootData.acceleration.map(data=>new Date(data.xAxis).toLocaleString())
+        const tempAccParamsXaxis = rightFootData.acceleration.map(data=>new Date(data.xAxis).getTime())
 
         const YaxisF1 = rightFootData.acceleration.map(data=>data.yAxis.f1)
         const YaxisF2 = rightFootData.acceleration.map(data=>data.yAxis.f2)
@@ -252,7 +252,7 @@ function Dashborad() {
       }
 
       if(rightFootData.gyro && rightFootData.gyro.length>0){
-        const tempgyroParamsXaxis = rightFootData.gyro.map(data=>new Date(data.xAxis).toLocaleString())
+        const tempgyroParamsXaxis = rightFootData.gyro.map(data=>new Date(data.xAxis).getTime())
 
         const YaxisF1 = rightFootData.gyro.map(data=>data.yAxis.f1)
         const YaxisF2 = rightFootData.gyro.map(data=>data.yAxis.f2)
@@ -298,7 +298,8 @@ function Dashborad() {
     autoSelected: 'zoom'
   };
   
-if(forceAvgL===null || forceAvgR===null || forceParamsL===null){
+  
+  if(!forceAvgL || !forceAvgR || !forceParamsL || !forceParamsR || !heartRateParamsL || !accParamsL || !accParamsR || !gyroscopeParamL || !gyroscopeParamR){
     return <Loading/>
   }
 
@@ -332,7 +333,7 @@ if(forceAvgL===null || forceAvgR===null || forceParamsL===null){
       </div>
 
       <div className='p-3 border rounded m-2 bg-primary'>
-        <h3 className='text-center my-2 text-dark'>Heart/ SpO2</h3>
+        <h3 className='text-center my-2 text-dark'>Heart/ SpO2 Sensor</h3>
         <div className='w-100 d-flex flex-wrap justify-content-center align-items-start gap-3'>
           <div className='col-11 col-md-8 col-lg-10 bg-white rounded'>
             <Livechart data={heartRateParamsL} title={'Left Foot'} lineStyle={'smooth'} lineWidth={3} chartType={'line'} controls={controls} />

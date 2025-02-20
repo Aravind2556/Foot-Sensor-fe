@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Powermange from '../../assets/undraw_medicine_hqqg.png';
+import Powermange from '../../assets/login.svg';
 
 
 export const Login = () => {
@@ -92,14 +92,14 @@ export const Login = () => {
           </div>
 
           {/* Login Button */}
-          <button type="submit" className="btn btn-primary w-100 mb-3">
+          <button type="submit" className="btn btn-info w-100 mb-3">
             Login
           </button>
 
           {/* Links */}
           <div className="d-flex justify-content-between">
 
-            <a href="/create-account" className="text-decoration-none">
+            <a href="/create-account" className="text-decoration-none text-info">
               Create Account
             </a>
           </div>

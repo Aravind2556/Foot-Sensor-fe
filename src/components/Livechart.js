@@ -7,6 +7,8 @@ const CustomApexChart = ({ data, title, lineStyle, lineWidth, chartType, control
     const allXValues = data.flatMap(serie => serie["x-axis"]);
     const xMin = Math.min(...allXValues);
     const xMax = Math.max(...allXValues);
+    const sortedXValues = [...allXValues].sort((a, b) => a - b);
+    const initialMin = sortedXValues.length > 50 ? sortedXValues[sortedXValues.length - 50] : sortedXValues[0];
 
     // Convert each data object into a series object expected by ApexCharts.
     const series = data.map((serie, index) => {
@@ -29,7 +31,9 @@ const options = {
         height: 350,
         type: chartType,
         zoom: {
-            enabled: controls?.zoomEnabled !== undefined ? controls.zoomEnabled : true
+            enabled: controls?.zoomEnabled !== undefined ? controls.zoomEnabled : true,
+            type: controls?.zoomType || 'x', // 'x', 'y', or 'xy'
+            autoScaleYaxis: controls?.autoScaleYaxis !== undefined ? controls.autoScaleYaxis : true
         },
         toolbar: {
             show: controls?.show !== undefined ? controls.show : true,
@@ -61,10 +65,15 @@ const options = {
             colors: ['#f3f3f3', 'transparent'],
             opacity: 0.5
         }
-    },
+    },  
     xaxis: {
-        type: 'numeric',
-        min: xMin,
+        type: 'datetime',
+        tickAmount: 50, // Increase this number to show more ticks
+        labels: {
+            formatter: (value) => new Date(value).toLocaleString(),
+            rotate: -45  // Rotate labels if they overlap
+        },
+        min: initialMin,
         max: xMax
     }
 };

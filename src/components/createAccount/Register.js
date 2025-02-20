@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Medicneimage from '../../assets/undraw_medicine_hqqg.png';
+import Medicneimage from '../../assets/register.svg';
 
 export const Register = () => {
   const apiurl = process.env.REACT_APP_API_URL;
@@ -118,9 +118,9 @@ export const Register = () => {
                 <input type="password" className="form-control" name="confirmPassword" placeholder="Confirm Password" value={formData.confirmPassword} onChange={handleChange} required />
                 <label>Confirm Password</label>
               </div>
-              <button type="submit" className="btn btn-primary w-100 mb-3">Register</button>
+              <button type="submit" className="btn btn-info w-100 mb-3">Register</button>
               <div className="text-center">
-                <p>Already have an account? <a href="/" className="text-decoration-none">Go to login</a></p>
+                <p>Already have an account? <a href="/" className="text-decoration-none text-info">Go to login</a></p>
               </div>
             </form>
           </div>

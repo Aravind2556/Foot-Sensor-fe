@@ -7,7 +7,7 @@
 
 
 
-@media(max-width: 586px){
+@media(max-width: 720px){
     .logo-tagline{
         display: none !important;
     }
