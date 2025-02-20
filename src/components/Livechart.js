@@ -2,6 +2,7 @@ import React from 'react';
 import ReactApexChart from 'react-apexcharts';
 
 const CustomApexChart = ({ data, title, lineStyle, lineWidth, chartType, controls }) => {
+    // console.log(data, title, lineStyle, lineWidth, chartType, controls)
     // Flatten all x-axis values from each series and compute the overall min and max.
     const allXValues = data.flatMap(serie => serie["x-axis"]);
     const xMin = Math.min(...allXValues);
@@ -71,7 +72,7 @@ const options = {
 return (
     <div>
         <div id="chart">
-            <ReactApexChart key={chartType} options={options} series={series} height={350} type={chartType} />
+            <ReactApexChart key={chartType} options={options} series={series} height={350} type={chartType} width={"100%"}/>
         </div>
         <div id="html-dist"></div>
     </div>

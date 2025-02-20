@@ -15,7 +15,7 @@ export const App = () => {
     return <Loading/>
   }
   return (
-    <div>
+    <div className='container-fluid p-0'>
       <Navbar/>
       <Routes>
         <Route path='/' element={isAuth !== false ? <Dashborad/> : <Login/> }></Route>

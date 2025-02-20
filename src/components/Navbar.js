@@ -32,7 +32,7 @@ export const Navbar = () => {
 
  
   return (
-    <nav className="navbar navbar-dark bg-dark px-3 d-flex justify-content-between fixed-top">
+    <nav className="navbar navbar-dark bg-dark px-3 d-flex justify-content-between sticky-top">
       {/* Left Side - Login Button */}
       <span className="navbar-brand mb-0 h1">LOGO</span>
 
