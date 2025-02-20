@@ -2,3 +2,13 @@
     position: relative;
     top: 100px;
 }
+
+
+
+
+
+@media(max-width: 586px){
+    .logo-tagline{
+        display: none !important;
+    }
+}

@@ -60,8 +60,8 @@ export const Register = () => {
         }
       })
       .catch(err => {
-        console.error("Error", err);
-       
+        console.error("A newtwork error has occurred to Register", err);
+        alert("A newtwork error has occurred. Please try again later.")
       });
   };
 

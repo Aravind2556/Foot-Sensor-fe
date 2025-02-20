@@ -5,7 +5,7 @@ import { Login } from './components/createAccount/Login'
 import Register from './components/createAccount/Register'
 import { DContext } from './components/context/Datacontext'
 import Dashborad from './components/createAccount/Dashborad'
-import { Loading } from './components/Loading'
+import Loading from './components/Loading'
 
 
 export const App = () => {

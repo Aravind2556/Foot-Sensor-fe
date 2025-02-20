@@ -12,7 +12,7 @@ export const Login = () => {
     
   });
 
-  console.log("form data for create account",formData)
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,7 +24,7 @@ export const Login = () => {
     e.preventDefault();
 
     if(formData){
-      console.log("formData:",formData)
+      
       fetch(`${apiurl}/Login-User`,{
         method : 'POST',
         headers : {
@@ -44,8 +44,8 @@ export const Login = () => {
         }
       })
       .catch(err=>{
-        console.log("Error",err)
-        alert("Catch error")
+        console.log("A newtwork error has occurred to login.",err)
+        alert("A newtwork error has occurred. Please try again later.")
       })
     }
     else{

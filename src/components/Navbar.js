@@ -19,11 +19,12 @@ export const Navbar = () => {
           window.location.href='/'
         }
         else {
-          console.log(data.message)
+          alert(data.message)
         }
       })
       .catch(err => {
-        console.log("Logout deFetching error", err)
+        console.log("A newtwork error has occurred to logout", err)
+        alert("A newtwork error has occurred. Please try again later.")
       })
   }
 
@@ -32,13 +33,14 @@ export const Navbar = () => {
 
  
   return (
-    <nav className="navbar navbar-dark bg-dark px-3 d-flex justify-content-between sticky-top">
+    <nav className="navbar navbar-dark px-5 d-flex justify-content-between  sticky-top" style={{background: "#2e86ab"}}>
       {/* Left Side - Login Button */}
-      <span className="navbar-brand mb-0 h1">LOGO</span>
+      <span className="navbar-brand mb-0 h1 fw-bold text-light fs-3">I FAP</span>
 
+      <span className="fs-6 text-light fw-bold logo-tagline">INNOVATIVE FALL CONTROL - ALERT & PREVENTION SYSTEM</span>
       {/* Right Side - Logo */}
       
-      <button className="btn btn-primary" onClick={isLogout}>{isAuth === false ? "Login" : "Logout"}</button>
+      <button className="btn btn-light" onClick={isLogout}>{isAuth === false ? "Login" : "Logout"}</button>
     </nav>
   );
 };

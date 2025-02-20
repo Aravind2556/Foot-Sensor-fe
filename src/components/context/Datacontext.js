@@ -51,7 +51,8 @@ function Datacontext(props) {
         }
       })
       .catch(err=>{
-        console.log("Network issue please try again later",err)
+        console.log("A newtwork error has occurred to think speak data",err)
+        alert("A newtwork error has occurred. Please try again later.")
       })
     
       fetch("https://api.thingspeak.com/channels/2840319/feeds.json?api_key=OYQ4P6FNNCMCKR5J",{
@@ -66,12 +67,13 @@ function Datacontext(props) {
         }
       })
       .catch(err=>{
-        console.log("Network issue please try again later",err)
+        console.log("A newtwork error has occurred to think speak data.",err)
+        alert("A newtwork error has occurred. Please try again later.")
       })
     
     }
     fetchData()
-    const interval = setInterval(fetchData, 50000)
+    const interval = setInterval(fetchData, 5000)
 
     return () => clearInterval(interval)
   },[])
@@ -253,14 +255,12 @@ function Datacontext(props) {
         }
       })
       .catch(err=>{
-        console.log("error fetching to username",err)
+        console.log("A newtwork error has occurred to user authentication",err)
+        alert("A newtwork error has occurred. Please try again later.")
       })
 
     }
-    else{
-      console.log("apiurl")
-    }
-  },[apiurl])
+},[apiurl])
 
   
   const data = {isAuth, leftFootData, rightFootData}

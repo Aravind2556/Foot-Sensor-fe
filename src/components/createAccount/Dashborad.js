@@ -1,13 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { DContext } from '../context/Datacontext';
 import Livechart from '../Livechart'
+import Loading from '../Loading';
 
 
 function Dashborad() {
 
   const {leftFootData, rightFootData} = useContext(DContext)
-  console.log("Left foor data",leftFootData)
-  console.log("right foot data",rightFootData)
   const [forceAvgL, setForceAvgL] = useState(null)
   const [forceAvgR, setForceAvgR] = useState(null)
 
@@ -17,6 +16,10 @@ function Dashborad() {
   const [heartRateParamsL,setheartRateParamsL] = useState(null)
 
   const [accParamsL, setAccParamsL] = useState(null)
+  const [accParamsR,setAccParamsR] = useState(null)
+
+  const [gyroscopeParamL,setgyroscopeParamL] = useState(null)
+ const [gyroscopeParamR,setgyroscopeParamR] = useState(null)
 
   useEffect(()=>{
 
@@ -28,7 +31,7 @@ function Dashborad() {
         const tempForceAvg = [{
           "x-axis": tempForceAvgXaxis,
           "y-axis": tempForceAvgYaxis,
-          color: "#876868",
+          color: "#008DD5",
           seriesName: 'Force Average data'
         }]
         setForceAvgL(tempForceAvg)
@@ -47,32 +50,32 @@ function Dashborad() {
         const tempForcef1 = {
           "x-axis": tempForceParamsXaxis,
           "y-axis": YaxisF1,
-          color: "#845668",
-          seriesName: 'f1'
+          color: "#f24236",
+          seriesName: 'Heal'
         }
         const tempForcef2 = {
           "x-axis": tempForceParamsXaxis,
           "y-axis": YaxisF2,
-          color: "#876988",
-          seriesName: 'f2'
+          color: "#007FFF           ",
+          seriesName: 'Arch'
         }
         const tempForcef3 = {
           "x-axis": tempForceParamsXaxis,
           "y-axis": YaxisF3,
-          color: "#566868",
-          seriesName: 'f3'
+          color: "#98CE00",
+          seriesName: 'Big toe'
         }
         const tempForcef4 = {
           "x-axis": tempForceParamsXaxis,
           "y-axis": YaxisF4,
           color: "#25e868",
-          seriesName: 'f4'
+          seriesName: 'Mid toe'
         }
         const tempForcef5 = {
           "x-axis": tempForceParamsXaxis,
           "y-axis": YaxisF5,
-          color: "#g76868",
-          seriesName: 'f5'
+          color: "#C200FB",
+          seriesName: 'Ball of foot'
         }
 
         setForceParamsL([tempForcef1, tempForcef2, tempForcef3, tempForcef4, tempForcef5])
@@ -88,13 +91,13 @@ function Dashborad() {
           "x-axis": tempHeartParamsXaxis,
           "y-axis": YaxisF1,
           color: "#f24236",
-          seriesName: 'f1'
+          seriesName: 'Heart Rate'
         }
         const tempHeartf2 = {
           "x-axis": tempHeartParamsXaxis,
           "y-axis": YaxisF2,
           color: "#007FFF",
-          seriesName: 'f2'
+          seriesName: 'SpO2'
         }
 
         setheartRateParamsL([tempHeartf1, tempHeartf2])
@@ -110,27 +113,56 @@ function Dashborad() {
         const tempAccf1 = {
           "x-axis": tempAccParamsXaxis,
           "y-axis": YaxisF1,
-          color: "#845668",
-          seriesName: 'f1'
+          color: "#f24236",
+          seriesName: 'Ax'
         }
         const tempAccf2 = {
           "x-axis": tempAccParamsXaxis,
           "y-axis": YaxisF2,
-          color: "#876988",
-          seriesName: 'f2'
+          color: "#007FFF",
+          seriesName: 'Ay'
         }
         const tempAccf3 = {
           "x-axis": tempAccParamsXaxis,
           "y-axis": YaxisF3,
-          color: "#566868",
-          seriesName: 'f3'
+          color: "#98CE00",
+          seriesName: 'Az'
         }
 
         setAccParamsL([tempAccf1, tempAccf2, tempAccf3])
       }
 
+
+      if(leftFootData.gyro && leftFootData.gyro.length>0){
+        const tempgyroParamsXaxis = leftFootData.gyro.map(data=>new Date(data.xAxis).toLocaleString())
+
+        const YaxisF1 = leftFootData.gyro.map(data=>data.yAxis.f1)
+        const YaxisF2 = leftFootData.gyro.map(data=>data.yAxis.f2)
+        const YaxisF3 = leftFootData.gyro.map(data=>data.yAxis.f3)
+
+        const tempAccf1 = {
+          "x-axis": tempgyroParamsXaxis,
+          "y-axis": YaxisF1,
+          color: "#f24236",
+          seriesName: 'Gx'
+        }
+        const tempAccf2 = {
+          "x-axis": tempgyroParamsXaxis,
+          "y-axis": YaxisF2,
+          color: "#007FFF",
+          seriesName: 'Gy'
+        }
+        const tempAccf3 = {
+          "x-axis": tempgyroParamsXaxis,
+          "y-axis": YaxisF3,
+          color: "#98CE00",
+          seriesName: 'Gz'
+        }
+
+        setgyroscopeParamL([tempAccf1, tempAccf2, tempAccf3])
+      }
     }
-    console.log("setAccParamsL:", setAccParamsL)
+  
     
     
     if(rightFootData){
@@ -141,7 +173,7 @@ function Dashborad() {
         const tempForceAvg = [{
           "x-axis": tempForceAvgXaxis,
           "y-axis": tempForceAvgYaxis,
-          color: "#876868",
+          color: "#008DD5",
           seriesName: 'Force Average data'
         }]
         setForceAvgR(tempForceAvg)
@@ -159,41 +191,99 @@ function Dashborad() {
         const tempForcef1 = {
           "x-axis": tempForceParamsXaxis,
           "y-axis": YaxisF1,
-          color: "#845668",
-          seriesName: 'f1'
+          color: "#f24236",
+          seriesName: 'Heal'
         }
         const tempForcef2 = {
           "x-axis": tempForceParamsXaxis,
           "y-axis": YaxisF2,
-          color: "#876988",
-          seriesName: 'f2'
+          color: "#007FFF",
+          seriesName: 'Arch'
         }
         const tempForcef3 = {
           "x-axis": tempForceParamsXaxis,
           "y-axis": YaxisF3,
-          color: "#566868",
-          seriesName: 'f3'
+          color: "#98CE00",
+          seriesName: 'Big toe'
         }
         const tempForcef4 = {
           "x-axis": tempForceParamsXaxis,
           "y-axis": YaxisF4,
           color: "#25e868",
-          seriesName: 'f4'
+          seriesName: 'Mid toe'
         }
         const tempForcef5 = {
           "x-axis": tempForceParamsXaxis,
           "y-axis": YaxisF5,
-          color: "#g76868",
-          seriesName: 'f5'
+          color: "#C200FB",
+          seriesName: 'Ball of foot'
         }
 
         setForceParamsR([tempForcef1, tempForcef2, tempForcef3, tempForcef4, tempForcef5])
+      }
+
+      if(rightFootData.acceleration && rightFootData.acceleration.length>0){
+        const tempAccParamsXaxis = rightFootData.acceleration.map(data=>new Date(data.xAxis).toLocaleString())
+
+        const YaxisF1 = rightFootData.acceleration.map(data=>data.yAxis.f1)
+        const YaxisF2 = rightFootData.acceleration.map(data=>data.yAxis.f2)
+        const YaxisF3 = rightFootData.acceleration.map(data=>data.yAxis.f3)
+
+        const tempAccf1 = {
+          "x-axis": tempAccParamsXaxis,
+          "y-axis": YaxisF1,
+          color: "#f24236",
+          seriesName: 'Ax'
+        }
+        const tempAccf2 = {
+          "x-axis": tempAccParamsXaxis,
+          "y-axis": YaxisF2,
+          color: "#007FFF",
+          seriesName: 'Ay'
+        }
+        const tempAccf3 = {
+          "x-axis": tempAccParamsXaxis,
+          "y-axis": YaxisF3,
+          color: "#98CE00",
+          seriesName: 'Az'
+        }
+
+        setAccParamsR([tempAccf1, tempAccf2, tempAccf3])
+      }
+
+      if(rightFootData.gyro && rightFootData.gyro.length>0){
+        const tempgyroParamsXaxis = rightFootData.gyro.map(data=>new Date(data.xAxis).toLocaleString())
+
+        const YaxisF1 = rightFootData.gyro.map(data=>data.yAxis.f1)
+        const YaxisF2 = rightFootData.gyro.map(data=>data.yAxis.f2)
+        const YaxisF3 = rightFootData.gyro.map(data=>data.yAxis.f3)
+
+        const tempAccf1 = {
+          "x-axis": tempgyroParamsXaxis,
+          "y-axis": YaxisF1,
+          color: "#f24236",
+          seriesName: 'Gx'
+        }
+        const tempAccf2 = {
+          "x-axis": tempgyroParamsXaxis,
+          "y-axis": YaxisF2,
+          color: "#007FFF",
+          seriesName: 'Gy'
+        }
+        const tempAccf3 = {
+          "x-axis": tempgyroParamsXaxis,
+          "y-axis": YaxisF3,
+          color: "#98CE00",
+          seriesName: 'Gz'
+        }
+
+        setgyroscopeParamR([tempAccf1, tempAccf2, tempAccf3])
       }
     }
 
   },[leftFootData, rightFootData])
 
-  console.log(leftFootData, rightFootData)
+ 
 
   const controls = {
     show: true,
@@ -204,90 +294,72 @@ function Dashborad() {
     zoomout: true,
     pan: true,
     reset: true,
-    zoomEnabled: true,   // Controls the zoom behavior of the chart
+    zoomEnabled: true,   
     autoSelected: 'zoom'
   };
   
-
-  const sampleData = [
-    {
-      "x-axis": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-      "y-axis": [4, 5, 2, 8, 6, 4, 5, 2, 8, 6],
-      color: "#876868",
-      seriesName: 'f1'
-    },
-    {
-      "x-axis": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-      "y-axis": [5, 6, 3, 7, 4, 5, 6, 3, 7, 4],
-      color: "#f5675f",
-      seriesName: 'f2'
-    },
-    {
-      "x-axis": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-      "y-axis": [2, 3, 1, 5, 3, 2, 3, 1, 5, 3],
-      color: "#f5675f",
-      seriesName: 'f3'
-    },
-    {
-      "x-axis": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-      "y-axis": [4, 2, 6, 8, 4, 7, 8, 3, 2, 1],
-      color: "#f5675f",
-      seriesName: 'f4'
-    }
-  ];
-
-  console.log("sample data",sampleData)
-
-  if(forceAvgL===null || forceAvgR===null || forceParamsL===null){
-    return <div>Loading...</div>
+if(forceAvgL===null || forceAvgR===null || forceParamsL===null){
+    return <Loading/>
   }
 
 
   return (
     <div className='w-100'>
-      <h2 className='my-3 text-center text-primary'>Dashboard</h2>
+      <h2 className='my-3 text-center text-dark fw-bolder'>Live Dashboard</h2>
 
-      <div className='p-2 border rounded m-2 bg-primary'>
-        <h3 className='text-center my-2'>Force Sensor Average</h3>
-        <div className='w-100 d-flex flex-wrap justify-content-center align-items-start gap-2'>
-          <div className='col-11 col-md-8 col-lg-5 bg-light'>
+      <div className='p-3 border rounded m-2 bg-primary'>
+        <h3 className='text-center my-2 text-dark'>Force Sensor Average</h3>
+        <div className='w-100 d-flex flex-wrap justify-content-center align-items-start gap-3'>
+          <div className='col-11 col-md-8 col-lg-5 bg-white rounded'>
             <Livechart data={forceAvgL} title={'Left Foot'} lineStyle={'smooth'} lineWidth={4} chartType={'line'} controls={controls} />
           </div>
-          <div className='col-11 col-md-8 col-lg-5 bg-light'>
+          <div className='col-11 col-md-8 col-lg-5 bg-white rounded'>
             <Livechart data={forceAvgR} title={'Right Foot'} lineStyle={'smooth'} lineWidth={4} chartType={'line'} controls={controls} />
           </div>
         </div>
       </div>
       
-      <div className='p-2 border rounded m-2 bg-primary'>
-        <h3 className='text-center my-2'>Force Sensor</h3>
-        <div className='w-100 d-flex flex-wrap justify-content-center align-items-start gap-2'>
-          <div className='col-11 col-md-8 col-lg-5 bg-light'>
+      <div className='p-3 border rounded m-2 bg-primary'>
+        <h3 className='text-center my-2 text-dark'>Force Sensor</h3>
+        <div className='w-100 d-flex flex-wrap justify-content-center align-items-start gap-3'>
+          <div className='col-11 col-md-8 col-lg-5 bg-white rounded'>
             <Livechart data={forceParamsL} title={'Left Foot'} lineStyle={'smooth'} lineWidth={2} chartType={'line'} controls={controls} />
           </div>
-          <div className='col-11 col-md-8 col-lg-5 bg-light'>
+          <div className='col-11 col-md-8 col-lg-5 bg-white rounded'>
             <Livechart data={forceParamsR} title={'Right Foot'} lineStyle={'smooth'} lineWidth={2} chartType={'line'} controls={controls} />
           </div>
         </div>
       </div>
 
-      <div className='p-2 border rounded m-2 bg-primary'>
-        <h3 className='text-center my-2'>Heart/ SpO2</h3>
-        <div className='w-100 d-flex flex-wrap justify-content-center align-items-start gap-2'>
-          <div className='col-11 col-md-8 col-lg-10 bg-light'>
+      <div className='p-3 border rounded m-2 bg-primary'>
+        <h3 className='text-center my-2 text-dark'>Heart/ SpO2</h3>
+        <div className='w-100 d-flex flex-wrap justify-content-center align-items-start gap-3'>
+          <div className='col-11 col-md-8 col-lg-10 bg-white rounded'>
             <Livechart data={heartRateParamsL} title={'Left Foot'} lineStyle={'smooth'} lineWidth={3} chartType={'line'} controls={controls} />
           </div>
         </div>
       </div>
 
-      <div className='p-2 border rounded m-2 bg-primary'>
-        <h3 className='text-center my-2'>Acceleration Sensor</h3>
-        <div className='w-100 d-flex flex-wrap justify-content-center align-items-start gap-2'>
-          <div className='col-11 col-md-8 col-lg-5 bg-light'>
+      <div className='p-3 border rounded m-2 bg-primary'>
+        <h3 className='text-center my-2 text-dark'>Acceleration Sensor</h3>
+        <div className='w-100 d-flex flex-wrap justify-content-center align-items-start gap-3'>
+          <div className='col-11 col-md-8 col-lg-5 bg-white rounded'>
             <Livechart data={accParamsL} title={'Left Foot'} lineStyle={'smooth'} lineWidth={2} chartType={'line'} controls={controls} />
           </div>
-          <div className='col-11 col-md-8 col-lg-5 bg-light'>
-            <Livechart data={forceParamsR} title={'Right Foot'} lineStyle={'smooth'} lineWidth={2} chartType={'line'} controls={controls} />
+          <div className='col-11 col-md-8 col-lg-5 bg-white rounded'>
+            <Livechart data={accParamsR} title={'Right Foot'} lineStyle={'smooth'} lineWidth={2} chartType={'line'} controls={controls} />
+          </div>
+        </div>
+      </div>
+
+      <div className='p-3 border rounded m-2 bg-primary'>
+        <h3 className='text-center my-2 text-dark'>Gyroscope Sensor</h3>
+        <div className='w-100 d-flex flex-wrap justify-content-center align-items-start gap-3'>
+          <div className='col-11 col-md-8 col-lg-5 bg-white rounded'>
+            <Livechart data={gyroscopeParamL} title={'Left Foot'} lineStyle={'smooth'} lineWidth={2} chartType={'line'} controls={controls} />
+          </div>
+          <div className='col-11 col-md-8 col-lg-5 bg-white rounded'>
+            <Livechart data={gyroscopeParamR} title={'Right Foot'} lineStyle={'smooth'} lineWidth={2} chartType={'line'} controls={controls} />
           </div>
         </div>
       </div>
